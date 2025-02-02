@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: node_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    env_file:
+      - docker.env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: always
+
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    restart: always
